@@ -136,6 +136,32 @@ services:
     stop_signal: SIGINT
 """
 
+    # Add report generator service before volumes
+    docker_compose_content += """
+  report-generator:
+    container_name: report-generator
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /bin/bash /app/result_script.sh
+    volumes:
+      - .:/app
+    depends_on:
+      - server
+      - prometheus
+      - grafana"""
+
+    # Add client specific dependencies
+    for i in range(1, args.total_clients + 1):
+        docker_compose_content += f"\n      - client{i}"
+        
+    docker_compose_content += """
+    environment:
+      - PROMETHEUS_URL=http://prometheus:9090
+    profiles:
+      - report
+"""
+
     docker_compose_content += "volumes:\n  grafana-storage:\n"
 
     with open("docker-compose.yml", "w") as file:

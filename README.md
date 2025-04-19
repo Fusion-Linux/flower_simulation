@@ -1,4 +1,3 @@
-
 ## Tutorial
 
 Running this example is easy. For a more detailed step-by-step guide, including more useful material, refer to the detailed guide in the following section.
@@ -116,4 +115,31 @@ For the federated learning system, we have selected the MobileNet model due to i
 - **CIFAR-10 Dataset**: A standard benchmark dataset for image classification, containing various object classes that pose a comprehensive challenge for the learning model.
 
 By integrating these components, our framework is well-prepared to handle the intricacies of training over a distributed network with varying device capabilities and data availability.
+
+### Generating Training Reports
+
+After completing the federated learning training, you can generate a comprehensive PDF report of the training results. The report includes:
+
+- Model configuration details
+- Training progress visualizations
+- Final performance metrics
+- System resource utilization
+
+To generate the report:
+
+1. **After Training Completion**:
+   ```bash
+   docker-compose --profile report up report-generator
+   ```
+
+2. **View the Report**:
+   - The report will be generated as `federated_learning_report.pdf` in your project directory
+   - Contains visualizations from Prometheus metrics
+   - Includes final model performance statistics
+
+The report generator service is configured to:
+- Access training metrics from Prometheus
+- Create detailed visualizations of the training process
+- Generate a professional PDF document suitable for documentation
+- Automatically clean up temporary files after report generation
 
