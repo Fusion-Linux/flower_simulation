@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+pip install reportlab matplotlib pandas seaborn
 
 # Create Python script to generate the PDF report
 cat > generate_report.py << 'EOF'
